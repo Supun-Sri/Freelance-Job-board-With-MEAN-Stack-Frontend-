@@ -1,0 +1,7 @@
+.hero-bg {
+    transition: background-image 1s ease-in-out;
+}
+
+.slide {
+    transition: opacity 1s ease-in-out;
+}

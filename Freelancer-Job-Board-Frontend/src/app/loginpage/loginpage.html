@@ -1,0 +1,78 @@
+<div id="login-signup-page" class="page">
+    <section class="min-h-[calc(100vh-8rem)] flex items-center justify-center p-4 md:p-8">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-lg p-8">
+            <!-- Toggle buttons -->
+            <div class="flex justify-center mb-6">
+                <button (click)="setActiveForm('login')" 
+                        [ngClass]="{'border-blue-600 text-blue-600': activeForm === 'login', 'border-transparent text-gray-500': activeForm !== 'login'}"
+                        class="px-6 py-2 border-b-2 font-semibold transition-colors hover:text-blue-600">
+                    Log In
+                </button>
+                <button (click)="setActiveForm('signup')" 
+                        [ngClass]="{'border-blue-600 text-blue-600': activeForm === 'signup', 'border-transparent text-gray-500': activeForm !== 'signup'}"
+                        class="px-6 py-2 border-b-2 font-semibold transition-colors hover:text-blue-600">
+                    Sign Up
+                </button>
+            </div>
+            
+            <!-- Login Form -->
+            <div *ngIf="activeForm === 'login'">
+                <h2 class="text-2xl font-bold text-center mb-6">Welcome Back!</h2>
+                <form (ngSubmit)="onLogin()">
+                    <div class="mb-4">
+                        <label for="login-email" class="block text-gray-700 font-medium mb-1">Email address</label>
+                        <input type="email" id="login-email" [(ngModel)]="loginEmail" name="loginEmail" class="w-full p-3 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div class="mb-6">
+                        <label for="login-password" class="block text-gray-700 font-medium mb-1">Password</label>
+                        <input type="password" id="login-password" [(ngModel)]="loginPassword" name="loginPassword" class="w-full p-3 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">
+                        <a href="#" class="text-sm text-blue-600 hover:underline mt-2 inline-block">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-3 rounded-xl hover:bg-blue-700 transition-colors">Log In</button>
+                </form>
+                <div class="relative flex items-center justify-center my-6">
+                    <span class="absolute px-3 bg-white text-gray-400">or</span>
+                    <div class="w-full border-t border-gray-300"></div>
+                </div>
+                <button class="w-full flex items-center justify-center space-x-2 bg-gray-100 text-gray-800 font-semibold py-3 rounded-xl hover:bg-gray-200 transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12.0001 4.75C12.8711 4.75 13.5681 5.40552 13.5681 6.25146V8.99187H16.0351C16.3211 8.99187 16.5681 9.20813 16.5681 9.48914C16.5681 9.77015 16.3211 9.9864 16.0351 9.9864H13.5681V12.7268H16.0351C16.3211 12.7268 16.5681 12.9431 16.5681 13.2241C16.5681 13.5051 16.3211 13.7214 16.0351 13.7214H13.5681V16.4618H16.0351C16.3211 16.4618 16.5681 16.678 16.5681 16.9591C16.5681 17.2401 16.3211 17.4564 16.0351 17.4564H13.5681V19.75C13.5681 20.6186 12.8686 21.25 12.0001 21.25C11.1316 21.25 10.4321 20.6186 10.4321 19.75V17.4564H7.9651C7.6791 17.4564 7.4321 17.2401 7.4321 16.9591C7.4321 16.678 7.6791 16.4618 7.9651 16.4618H10.4321V13.7214H7.9651C7.6791 13.7214 7.4321 13.5051 7.4321 13.2241C7.4321 12.9431 7.6791 12.7268 7.9651 12.7268H10.4321V9.9864H7.9651C7.6791 9.9864 7.4321 9.77015 7.4321 9.48914C7.4321 9.20813 7.6791 8.99187 7.9651 8.99187H10.4321V6.25146C10.4321 5.40552 11.1291 4.75 12.0001 4.75ZM12.0001 2.25C13.8811 2.25 15.5481 3.51864 16.2991 5.25H18.2501C19.2161 5.25 20.0001 6.03395 20.0001 7V17C20.0001 17.966 19.2161 18.75 18.2501 18.75H16.2991C15.5481 20.4814 13.8811 21.75 12.0001 21.75C10.1191 21.75 8.4521 20.4814 7.2011 18.75H5.2501C4.2841 18.75 3.5001 17.966 3.5001 17V7C3.5001 6.03395 4.2841 5.25 5.2501 5.25H7.2011C8.4521 3.51864 10.1191 2.25 12.0001 2.25Z"></path>
+                    </svg>
+                    <span>Continue with Google</span>
+                </button>
+            </div>
+            
+            <!-- Signup Form -->
+            <div *ngIf="activeForm === 'signup'">
+                <h2 class="text-2xl font-bold text-center mb-6">Join Us!</h2>
+                <form (ngSubmit)="onSignup()">
+                    <div class="mb-4">
+                        <label for="signup-name" class="block text-gray-700 font-medium mb-1">Full Name</label>
+                        <input type="text" id="signup-name" [(ngModel)]="signupName" name="signupName" class="w-full p-3 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div class="mb-4">
+                        <label for="signup-email" class="block text-gray-700 font-medium mb-1">Email address</label>
+                        <input type="email" id="signup-email" [(ngModel)]="signupEmail" name="signupEmail" class="w-full p-3 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div class="mb-6">
+                        <label for="signup-password" class="block text-gray-700 font-medium mb-1">Password</label>
+                        <input type="password" id="signup-password" [(ngModel)]="signupPassword" name="signupPassword" class="w-full p-3 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-3 rounded-xl hover:bg-blue-700 transition-colors">Sign Up</button>
+                </form>
+                <div class="relative flex items-center justify-center my-6">
+                    <span class="absolute px-3 bg-white text-gray-400">or</span>
+                    <div class="w-full border-t border-gray-300"></div>
+                </div>
+                <button class="w-full flex items-center justify-center space-x-2 bg-gray-100 text-gray-800 font-semibold py-3 rounded-xl hover:bg-gray-200 transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12.0001 4.75C12.8711 4.75 13.5681 5.40552 13.5681 6.25146V8.99187H16.0351C16.3211 8.99187 16.5681 9.20813 16.5681 9.48914C16.5681 9.77015 16.3211 9.9864 16.0351 9.9864H13.5681V12.7268H16.0351C16.3211 12.7268 16.5681 12.9431 16.5681 13.2241C16.5681 13.5051 16.3211 13.7214 16.0351 13.7214H13.5681V16.4618H16.0351C16.3211 16.4618 16.5681 16.678 16.5681 16.9591C16.5681 17.2401 16.3211 17.4564 16.0351 17.4564H13.5681V19.75C13.5681 20.6186 12.8686 21.25 12.0001 21.25C11.1316 21.25 10.4321 20.6186 10.4321 19.75V17.4564H7.9651C7.6791 17.4564 7.4321 17.2401 7.4321 16.9591C7.4321 16.678 7.6791 16.4618 7.9651 16.4618H10.4321V13.7214H7.9651C7.6791 13.7214 7.4321 13.5051 7.4321 13.2241C7.4321 12.9431 7.6791 12.7268 7.9651 12.7268H10.4321V9.9864H7.9651C7.6791 9.9864 7.4321 9.77015 7.4321 9.48914C7.4321 9.20813 7.6791 8.99187 7.9651 8.99187H10.4321V6.25146C10.4321 5.40552 11.1291 4.75 12.0001 4.75ZM12.0001 2.25C13.8811 2.25 15.5481 3.51864 16.2991 5.25H18.2501C19.2161 5.25 20.0001 6.03395 20.0001 7V17C20.0001 17.966 19.2161 18.75 18.2501 18.75H16.2991C15.5481 20.4814 13.8811 21.75 12.0001 21.75C10.1191 21.75 8.4521 20.4814 7.2011 18.75H5.2501C4.2841 18.75 3.5001 17.966 3.5001 17V7C3.5001 6.03395 4.2841 5.25 5.2501 5.25H7.2011C8.4521 3.51864 10.1191 2.25 12.0001 2.25Z"></path>
+                    </svg>
+                    <span>Continue with Google</span>
+                </button>
+            </div>
+            
+
+        </div>
+    </section>
+</div>

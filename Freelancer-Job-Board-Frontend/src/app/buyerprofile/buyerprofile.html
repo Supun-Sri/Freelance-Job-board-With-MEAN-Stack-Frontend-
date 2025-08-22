@@ -1,0 +1,90 @@
+<div id="buyer-profile-page" class="page">
+                <section class="container mx-auto px-4 py-8">
+                    <h1 class="text-3xl font-bold mb-8 text-center md:text-left">My Profile</h1>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                        <div class="lg:col-span-1">
+                            <div class="bg-white p-6 rounded-xl shadow-lg mb-6">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <img [src]="currentUser?.avatar || 'https://placehold.co/80x80/d1d5db/000000?text=AM'" alt="Profile" class="w-16 h-16 rounded-full">
+                                    <div>
+                                        <p class="text-xl font-bold">{{ currentUser?.name }}</p>
+                                        <p class="text-gray-500 text-sm">Buyer</p>
+                                    </div>
+                                </div>
+                                <nav class="space-y-2">
+                                    <a href="#order-history" class="block py-2 px-4 rounded-lg bg-blue-100 text-blue-600 font-medium">Order History</a>
+                                    <a href="#favourites" class="block py-2 px-4 rounded-lg hover:bg-gray-100 text-gray-700">Favourites</a>
+                                    <a href="#personal-info" class="block py-2 px-4 rounded-lg hover:bg-gray-100 text-gray-700">Personal Info</a>
+                                </nav>
+                            </div>
+                        </div>
+
+
+                        <div class="lg:col-span-2 space-y-8" *ngIf="currentUser">
+         
+                            <div id="order-history" class="bg-white p-6 rounded-xl shadow-lg">
+                                <h2 class="text-2xl font-bold mb-4">Order History</h2>
+                                <div class="space-y-4">
+                                    <div *ngIf="buyerOrders.length === 0" class="text-gray-500">No orders found.</div>
+                         
+                                    <div *ngFor="let order of buyerOrders" class="flex items-center space-x-4 border-b pb-4 last:border-0 last:pb-0">
+              
+                                        <img src="https://placehold.co/100x60/1e3a8a/ffffff?text=Gig" alt="Gig Image" class="w-20 h-12 rounded-lg object-cover">
+                                        <div class="flex-grow">
+                                            <p class="font-semibold text-gray-800">Gig ID: {{ order.gig }}</p>
+                                            <p class="text-sm text-gray-500">Order ID: #{{ order._id }}</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="text-lg font-bold" [ngClass]="{'text-green-600': order.status === 'completed', 'text-yellow-600': order.status === 'in-progress', 'text-red-600': order.status === 'cancelled'}">${{ order.price }}</span>
+                                            <p class="text-sm text-gray-500">{{ order.status | titlecase }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+         
+                            <div id="favourites" class="bg-white p-6 rounded-xl shadow-lg">
+                                <h2 class="text-2xl font-bold mb-4">Favourites</h2>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                   
+                                    <div class="bg-gray-50 rounded-lg p-4 flex items-center space-x-4">
+                                        <img src="https://placehold.co/80x50/4b5563/ffffff?text=SEO" alt="Gig Image" class="w-16 h-10 object-cover rounded-lg">
+                                        <div class="flex-grow">
+                                            <p class="font-semibold text-sm">SEO Strategy for your website</p>
+                                            <p class="text-xs text-gray-500">by David Lee</p>
+                                        </div>
+                                        <a href="#" class="text-blue-600 text-sm">View</a>
+                                    </div>
+                   
+                                    <div class="bg-gray-50 rounded-lg p-4 flex items-center space-x-4">
+                                        <img src="https://placehold.co/80x50/475569/ffffff?text=Content" alt="Gig Image" class="w-16 h-10 object-cover rounded-lg">
+                                        <div class="flex-grow">
+                                            <p class="font-semibold text-sm">Professional blog writing</p>
+                                            <p class="text-xs text-gray-500">by Emily White</p>
+                                        </div>
+                                        <a href="#" class="text-blue-600 text-sm">View</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="personal-info" class="bg-white p-6 rounded-xl shadow-lg">
+                                <h2 class="text-2xl font-bold mb-4">Personal Information</h2>
+                                <form>
+                                    <div class="mb-4">
+                                        <label for="full-name" class="block text-gray-700 font-medium mb-1">Full Name</label>
+                                        <input type="text" id="full-name" [value]="currentUser.name" class="w-full p-3 rounded-lg border border-gray-300">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="email" class="block text-gray-700 font-medium mb-1">Email Address</label>
+                                        <input type="email" id="email" [value]="currentUser.email" class="w-full p-3 rounded-lg border border-gray-300">
+                                    </div>
+                                    <div class="text-right">
+                                        <button type="submit" class="bg-blue-600 text-white font-semibold py-2 px-6 rounded-xl hover:bg-blue-700">Save Changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>

@@ -1,0 +1,94 @@
+<div class="bg-gray-50 text-gray-800" *ngIf="gig">
+
+
+    <div id="app-container" class="min-h-screen flex flex-col">
+                    <div id="gig-details-page" class="page">
+                <section class="container mx-auto px-4 py-8">
+                    <div class="flex flex-col lg:flex-row gap-8">
+ 
+                        <div class="lg:w-2/3">
+                            <h1 class="text-3xl font-bold mb-4">{{ gig.title }}</h1>
+                            
+           
+                            <div *ngIf="creator" class="flex items-center space-x-4 mb-6">
+                                <img [src]="creator.avatar" [alt]="creator.name" class="w-12 h-12 rounded-full">
+                                <div>
+                                    <span class="font-semibold text-gray-800">{{ creator.name }}</span>
+                                    <p class="text-sm text-gray-500" *ngIf="gig.topRatedSeller">Top Rated Seller</p>
+                                </div>
+                                <div class="flex items-center text-yellow-500 text-sm">
+                                    <span class="mr-1">★</span> {{ gig.rating }} <span class="text-gray-500 ml-1">({{ gig.reviews }} reviews)</span>
+                                </div>
+                            </div>
+
+
+                            <div class="mb-8 rounded-xl overflow-hidden shadow-lg">
+                                <img [src]="gig.image" [alt]="gig.title" class="w-full object-cover">
+                            </div>
+
+  
+                            <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
+                                <h3 class="text-xl font-semibold mb-4">About this Gig</h3>
+                                <p class="text-gray-600 leading-relaxed">{{ gig.description }}</p>
+                            </div>
+
+       
+                            <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
+                                <h3 class="text-xl font-semibold mb-4">Reviews ({{ gig.reviews }})</h3>
+                   
+                                <div class="flex items-center space-x-2 mb-6">
+                                    <span class="text-4xl font-bold">{{ gig.rating }}</span>
+                                    <div class="flex flex-col">
+                                        <div class="flex text-yellow-500">
+                                            <span>★</span><span>★</span><span>★</span><span>★</span><span class="text-gray-300">★</span>
+                                        </div>
+                                        <span class="text-sm text-gray-500">Average Rating</span>
+                                    </div>
+                                </div>
+                        
+                                <div *ngFor="let review of gig.reviewsList" class="border-b border-gray-200 pb-4 mb-4 last:border-0">
+                                    <div class="flex items-center space-x-3 mb-2">
+                                        <img [src]="review.reviewerImage" [alt]="review.reviewerName" class="w-10 h-10 rounded-full">
+                                        <div>
+                                            <p class="font-semibold">{{ review.reviewerName }}</p>
+                                            <div class="flex items-center text-yellow-500 text-sm">
+                                                <span class="mr-1">★</span> {{ review.rating }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-600">"{{ review.comment }}"</p>
+                                </div>
+                            </div>
+                        </div>
+
+  
+                        <div class="lg:w-1/3">
+                            <div class="bg-white p-6 rounded-xl shadow-lg sticky top-24">
+                          
+                                <div class="flex border-b border-gray-200 mb-6">
+                                    <button (click)="selectTier('Basic')" [ngClass]="{'text-blue-600 border-blue-600': selectedTier === 'Basic', 'text-gray-500 border-transparent': selectedTier !== 'Basic'}" class="flex-1 text-center py-3 text-sm font-semibold border-b-2 hover:text-blue-600">Basic</button>
+                                    <button (click)="selectTier('Standard')" [ngClass]="{'text-blue-600 border-blue-600': selectedTier === 'Standard', 'text-gray-500 border-transparent': selectedTier !== 'Standard'}" class="flex-1 text-center py-3 text-sm font-semibold border-b-2 hover:text-blue-600">Standard</button>
+                                    <button (click)="selectTier('Premium')" [ngClass]="{'text-blue-600 border-blue-600': selectedTier === 'Premium', 'text-gray-500 border-transparent': selectedTier !== 'Premium'}" class="flex-1 text-center py-3 text-sm font-semibold border-b-2 hover:text-blue-600">Premium</button>
+                                </div>
+                       
+                                <div *ngIf="getSelectedTierDetails() as tier">
+                                    <div class="flex justify-between items-center mb-4">
+                                        <h3 class="text-2xl font-bold">${{ tier.price }}</h3>
+                                        <p class="text-sm text-gray-500">{{ tier.deliveryDays }}-day delivery</p>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mb-6">{{ tier.description }}</p>
+                                    <ul class="text-sm text-gray-700 space-y-2 mb-6">
+                                        <li *ngFor="let feature of tier.features" class="flex items-center space-x-2">
+                                            <svg class="h-4 w-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                                            <span>{{ feature }}</span>
+                                        </li>
+                                    </ul>
+                                    <button class="w-full bg-blue-600 text-white font-semibold py-3 rounded-xl hover:bg-blue-700 transition-colors" data-target="buy-service-page">Continue (${{ tier.price }})</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+</div>  
+</div>

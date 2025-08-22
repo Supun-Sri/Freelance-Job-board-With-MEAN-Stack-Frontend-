@@ -1,0 +1,97 @@
+
+            <div id="freelancer-profile-page" class="page">
+                <section class="container mx-auto px-4 py-8">
+                    <h1 class="text-3xl font-bold mb-8 text-center md:text-left">My Dashboard</h1>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    
+                        <div class="lg:col-span-1" *ngIf="currentUser">
+                            <div class="bg-white p-6 rounded-xl shadow-lg mb-6">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <img [src]="currentUser.avatar || 'https://placehold.co/80x80/d1d5db/000000?text=AM'" [alt]="currentUser.name.charAt(0)" class="w-16 h-16 rounded-full">
+                                    <div>
+                                        <p class="text-xl font-bold">{{ currentUser.name }}</p>
+                                        <p class="text-gray-500 text-sm">Freelancer</p>
+                                    </div>
+                                </div>
+                                <nav class="space-y-2">
+                                    <a href="#active-orders" class="block py-2 px-4 rounded-lg bg-blue-100 text-blue-600 font-medium">Active Orders</a>
+                                    <a href="#my-gigs" class="block py-2 px-4 rounded-lg hover:bg-gray-100 text-gray-700">My Gigs</a>
+                                    <a href="#payments" class="block py-2 px-4 rounded-lg hover:bg-gray-100 text-gray-700">Payments</a>
+                                </nav>
+                            </div>
+                        </div>
+                        
+
+                        <div class="lg:col-span-2 space-y-8" *ngIf="currentUser">
+
+                            <div id="active-orders" class="bg-white p-6 rounded-xl shadow-lg">
+                                <h2 class="text-2xl font-bold mb-4">Active Orders</h2>
+                                <div class="space-y-4">
+                                    <div *ngIf="freelancerOrders.length === 0" class="text-gray-500">No active orders found.</div>
+                      
+                                    <div *ngFor="let order of freelancerOrders" class="flex items-center space-x-4 border-b pb-4 last:border-0 last:pb-0">
+  
+                                        <img src="https://placehold.co/100x60/9ca3af/ffffff?text=Gig" alt="Gig Image" class="w-20 h-12 rounded-lg object-cover">
+                                        <div class="flex-grow">
+                                            <p class="font-semibold text-gray-800">Gig ID: {{ order.gig }}</p>
+                                            <p class="text-sm text-gray-500">Order ID: #{{ order._id }}</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="text-lg font-bold" [ngClass]="{'text-green-600': order.status === 'completed', 'text-yellow-600': order.status === 'in-progress', 'text-red-600': order.status === 'cancelled'}">${{ order.price }}</span>
+                                            <p class="text-sm text-gray-500">{{ order.status | titlecase }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+               
+                            <div id="my-gigs" class="bg-white p-6 rounded-xl shadow-lg">
+                                <h2 class="text-2xl font-bold mb-4">My Gigs</h2>
+                                <div class="space-y-4">
+                                    <div *ngIf="freelancerGigs.length === 0" class="text-gray-500">No gigs created yet.</div>
+                     
+                                    <div *ngFor="let gig of freelancerGigs" class="flex items-center space-x-4 border-b pb-4 last:border-0 last:pb-0">
+                                        <img [src]="gig.image" [alt]="gig.title" class="w-20 h-12 object-cover rounded-lg">
+                                        <div class="flex-grow">
+                                            <p class="font-semibold text-gray-800">{{ gig.title }}</p>
+                                            <p class="text-sm text-gray-500">Price: From ${{ gig.price }}</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="text-yellow-500">★ {{ gig.rating }}</span>
+                                            <p class="text-sm text-gray-500">{{ gig.reviews }} Reviews</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="w-full bg-gray-100 text-gray-800 font-semibold py-3 rounded-xl hover:bg-gray-200 mt-4" data-target="gig-creation-page">
+                                    Create a New Gig
+                                </button>
+                            </div>
+                            
+
+                            <div id="payments" class="bg-white p-6 rounded-xl shadow-lg">
+                                <h2 class="text-2xl font-bold mb-4">Payments</h2>
+                                <div class="flex justify-between items-center mb-4">
+                                    <div>
+                                        <p class="text-gray-500 text-sm">Net Income</p>
+                                        <p class="text-2xl font-bold text-green-600">$2,450</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-gray-500 text-sm">Withdrawn</p>
+                                        <p class="text-2xl font-bold text-gray-800">$1,800</p>
+                                    </div>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="bg-gray-50 p-4 rounded-lg flex items-center justify-between">
+                                        <p class="font-medium text-sm">PayPal</p>
+                                        <button class="text-blue-600 text-sm font-semibold">Connect</button>
+                                    </div>
+                                    <div class="bg-gray-50 p-4 rounded-lg flex items-center justify-between">
+                                        <p class="font-medium text-sm">Bank Transfer</p>
+                                        <button class="text-blue-600 text-sm font-semibold">Connect</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>

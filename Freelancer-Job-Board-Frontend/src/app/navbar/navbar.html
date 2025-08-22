@@ -1,0 +1,45 @@
+    <!-- Modern Navbar -->
+    <header class="bg-white sticky top-0 z-50 shadow-sm py-4">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+            <!-- Logo/Home Link -->
+            <a href="#" class="flex items-center space-x-2">    
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                <span class="text-2xl font-bold text-gray-900">Bookit</span>
+            </a>
+
+            <!-- Main Navigation Links (Desktop) -->
+            <div class="hidden md:flex flex-1 justify-center space-x-8">
+                <a routerLink="/" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">Home</a>
+                <a routerLink="/search" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">Search for a service</a>
+                <a routerLink="/freelancerprofile"class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">for freelancers </a>
+                <a routerLink="/buyerprofile"class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">for buyers </a>
+                <a routerLink="/jobcreation" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">About Us</a>
+                <a routerLink="/buy" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">About Us</a>
+            </div>
+
+            <!-- User Actions & Mobile Menu Button -->
+            <div class="flex items-center space-x-4">
+                <a  routerLink="/login" class="hidden md:block text-gray-600 hover:text-indigo-600 transition-colors duration-300">Sign In</a>
+                <button (click)="toggleMenu()" id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-gray-900 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div *ngIf="isMenuOpen" id="mobile-menu" class="md:hidden  bg-white py-4 shadow-inner">
+            <div class="flex flex-col items-center space-y-4 px-4">
+                <a routerLink="/" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">Home</a>
+                <a routerLink="/search" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">earch for a service</a>
+                <a routerLink="/freelancerprofile" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">for freelancers</a>
+                <a routerLink="/buyerprofile" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">for buyers</a>
+                <a routerLink="/about" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">About Us</a>
+                <div class="w-full h-px bg-gray-200 my-2"></div>
+                <a routerLink="/login" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">Sign In</a>
+            </div>
+        </div>
+    </header>
