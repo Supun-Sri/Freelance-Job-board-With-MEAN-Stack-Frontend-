@@ -14,7 +14,8 @@ interface SignupCredentials {
   providedIn: 'root'
 })
 export class AuthService {
-private apiUrl = environment.apiUrl + '/auth'; // Corrected API URL
+private apiUrl = `${environment.apiUrl}/auth`;
+
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
   private authenticationDone = new BehaviorSubject<boolean>(false);
