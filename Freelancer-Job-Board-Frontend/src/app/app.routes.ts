@@ -67,7 +67,7 @@ export const routes: Routes = [
     },
     { 
         path: '**',
-        redirectTo: '/front',
+        redirectTo: '/',
         pathMatch: 'full'
     }
 
