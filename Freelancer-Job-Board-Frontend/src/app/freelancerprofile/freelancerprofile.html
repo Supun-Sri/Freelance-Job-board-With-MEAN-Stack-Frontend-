@@ -50,21 +50,21 @@
                                 <div class="space-y-4">
                                     <div *ngIf="freelancerGigs.length === 0" class="text-gray-500">No gigs created yet.</div>
                      
-                                    <div *ngFor="let gig of freelancerGigs" class="flex items-center space-x-4 border-b pb-4 last:border-0 last:pb-0">
+                                    <a [routerLink]="['/gig', gig._id]" *ngFor="let gig of freelancerGigs" class="flex items-center space-x-4 border-b pb-4 last:border-0 last:pb-0">
                                         <img [src]="gig.image" [alt]="gig.title" class="w-20 h-12 object-cover rounded-lg">
                                         <div class="flex-grow">
                                             <p class="font-semibold text-gray-800">{{ gig.title }}</p>
-                                            <p class="text-sm text-gray-500">Price: From ${{ gig.price }}</p>
+                                            <p class="text-sm text-gray-500">Price: From ${{ gig.pricingTiers.basic.price }}</p>
                                         </div>
                                         <div class="text-right">
                                             <span class="text-yellow-500">★ {{ gig.rating }}</span>
                                             <p class="text-sm text-gray-500">{{ gig.reviews }} Reviews</p>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
-                                <button class="w-full bg-gray-100 text-gray-800 font-semibold py-3 rounded-xl hover:bg-gray-200 mt-4" data-target="gig-creation-page">
+                                <a   class="w-full bg-gray-100 text-gray-800 font-semibold py-3 rounded-xl hover:bg-gray-200 mt-4" data-target="jobcreation">
                                     Create a New Gig
-                                </button>
+                                </a>
                             </div>
                             
 

@@ -50,8 +50,8 @@ export class Searchpage implements OnInit {
   applyFilters(  ): void {
     this.filteredGigs = this.gigs.filter(gig => {
       const matchesSearchTerm = gig.title.toLowerCase().includes(this.searchTerm.toLowerCase());
-      const matchesMinPrice = this.minPrice === null || gig.price >= this.minPrice;
-      const matchesMaxPrice = this.maxPrice === null || gig.price <= this.maxPrice;
+      const matchesMinPrice = this.minPrice === null || gig.pricingTiers.basic.price >= this.minPrice;
+      const matchesMaxPrice = this.maxPrice === null || gig.pricingTiers.premium.price <= this.maxPrice;
       const matchesHighQuality = !this.filters.highQuality || gig.highQuality;
       const matchesTwoDayDelivery = !this.filters.twoDayDelivery || gig.twoDayDelivery;
       const matchesTopRatedSeller = !this.filters.topRatedSeller || gig.topRatedSeller;

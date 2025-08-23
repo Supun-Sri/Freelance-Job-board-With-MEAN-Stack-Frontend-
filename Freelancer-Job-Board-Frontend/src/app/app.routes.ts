@@ -8,6 +8,8 @@ import { Jobcreation } from './jobcreation/jobcreation';
 import { Gigpage } from './gigpage/gigpage';
 import { Freelancerprofile } from './freelancerprofile/freelancerprofile';
 import { Buyerprofile } from './buyerprofile/buyerprofile';
+import { myguardGuard } from './guards/myguard-guard';
+
 export const routes: Routes = [
 
     {
@@ -38,12 +40,14 @@ export const routes: Routes = [
     },
     { 
         path: 'buy',
-        component: Buypage
+        component: Buypage,
+        canActivate: [myguardGuard]
 
     },
     { 
         path: 'jobcreation',
-        component: Jobcreation
+        component: Jobcreation,
+        canActivate: [myguardGuard]
 
     },
     { 
@@ -53,11 +57,13 @@ export const routes: Routes = [
     },
     {
         path: 'freelancerprofile',
-        component: Freelancerprofile
+        component: Freelancerprofile,
+        canActivate: [myguardGuard]
     },
     {
         path: 'buyerprofile',
-        component: Buyerprofile
+        component: Buyerprofile,
+        canActivate: [myguardGuard]
     },
     { 
         path: '**',

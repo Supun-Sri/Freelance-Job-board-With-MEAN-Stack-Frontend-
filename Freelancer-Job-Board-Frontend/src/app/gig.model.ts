@@ -21,7 +21,6 @@ export interface Gig {
     title: string;
     rating: number;
     reviews: number;
-    price: number;
     image: string;
     highQuality: boolean;
     twoDayDelivery: boolean;

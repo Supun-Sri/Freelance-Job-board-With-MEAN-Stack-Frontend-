@@ -6,6 +6,7 @@ import { GigService } from '../gig.service';
 import { AuthService } from '../auth.service';
 import { Gig } from '../gig.model';
 import { User } from '../user.model';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-jobcreation',
@@ -17,8 +18,7 @@ import { User } from '../user.model';
 export class Jobcreation implements OnInit {
   newGig: Omit<Gig, '_id' | 'rating' | 'reviews' | 'reviewsList' | 'creator'> = {
     title: '',
-    price: 0,
-    image: 'https://placehold.co/600x400/cccccc/ffffff?text=New+Gig', // Placeholder
+    image: 'https://placehold.co/600x400/cccccc/ffffff?text=New+Gig', 
     highQuality: false,
     twoDayDelivery: false,
     topRatedSeller: false,
@@ -31,11 +31,21 @@ export class Jobcreation implements OnInit {
     }
   };
   currentUser: User | null = null;
+  file: File | null = null;
+ uploadedUrl: string | null = null;
+
+onFileSelected(event: Event) {
+  const input = event.target as HTMLInputElement;
+  if (input.files && input.files.length > 0) {
+    this.file = input.files[0];   
+  }
+}
 
   constructor(
     private gigService: GigService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -45,25 +55,42 @@ export class Jobcreation implements OnInit {
   }
 
   createGig(): void {
+if (! this.file ) {
+  alert('Please select an image file.');
+  return;
+} 
+const formData = new FormData();
+formData.append('file', this.file);
+formData.append('upload_preset','ml_default' );
+this.http.post<any>(
+      'https://api.cloudinary.com/v1_1/dq8jyhdua/auto/upload',
+      formData
+    ).subscribe(res => {
+      console.log(res);
+      this.uploadedUrl = res.secure_url; 
+      this.newGig.image = this.uploadedUrl || this.newGig.image;
+    });
     if (this.currentUser) {
       const gigToCreate = {
         ...this.newGig,
         creator: this.currentUser
       };
-      
       this.gigService.addGig(gigToCreate).subscribe({
         next: (createdGig) => {
           this.router.navigate(['/gig', createdGig._id]);
         },
         error: (err) => {
           console.error('Error creating gig', err);
-          // Optionally, show an error message to the user
+        },
+        complete: () => {
+          alert('Gig creation process completed');
+          this.router.navigate(['/freelancerprofile']);
         }
       });
     } else {
-      // Handle case where user is not logged in
+    
       console.error('User not logged in');
-      // Optionally, redirect to login page
+     
       this.router.navigate(['/login']);
     }
   }

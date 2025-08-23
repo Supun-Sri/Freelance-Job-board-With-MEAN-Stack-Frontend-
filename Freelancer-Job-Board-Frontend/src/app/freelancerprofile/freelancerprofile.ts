@@ -7,11 +7,11 @@ import { User } from '../user.model';
 import { Gig } from '../gig.model';
 import { Order } from '../order.model';
 import { CommonModule } from '@angular/common';
-
+import { ActivatedRoute, RouterModule , Router } from '@angular/router';
 @Component({
   selector: 'app-freelancerprofile',
   standalone: true, 
-  imports: [CommonModule],
+  imports: [CommonModule , RouterModule],
   templateUrl: './freelancerprofile.html',
   styleUrl: './freelancerprofile.css'
 })
@@ -25,9 +25,14 @@ export class Freelancerprofile implements OnInit {
     private userService: UserService,
     private gigService: GigService,
     private orderService: OrderService,
-    private cd: ChangeDetectorRef 
+    private cd: ChangeDetectorRef ,
+    private router: Router
   ) { }
 
+
+  navigate(route: string[]): void {
+    this.router.navigate(route);
+  }
   ngOnInit(): void {
 
     this.authService.currentUser$.subscribe(user => {
@@ -38,6 +43,7 @@ export class Freelancerprofile implements OnInit {
           next: (gigs) => {
             this.freelancerGigs = gigs;
             console.log('Freelancer Gigs:', this.freelancerGigs);
+               this.cd.detectChanges(); 
           },
           error: (err) => {
             console.error('Error fetching freelancer gigs:', err);
