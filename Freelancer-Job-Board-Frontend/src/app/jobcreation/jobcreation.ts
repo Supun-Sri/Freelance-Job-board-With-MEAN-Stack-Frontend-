@@ -18,7 +18,7 @@ import { HttpClient } from '@angular/common/http';
 export class Jobcreation implements OnInit {
   newGig: Omit<Gig, '_id' | 'rating' | 'reviews' | 'reviewsList' | 'creator'> = {
     title: '',
-    image: 'https://placehold.co/600x400/cccccc/ffffff?text=New+Gig', 
+    image: '', 
     highQuality: false,
     twoDayDelivery: false,
     topRatedSeller: false,
@@ -55,43 +55,50 @@ onFileSelected(event: Event) {
   }
 
   createGig(): void {
-if (! this.file ) {
-  alert('Please select an image file.');
-  return;
-} 
-const formData = new FormData();
-formData.append('file', this.file);
-formData.append('upload_preset','ml_default' );
-this.http.post<any>(
-      'https://api.cloudinary.com/v1_1/dq8jyhdua/auto/upload',
-      formData
-    ).subscribe(res => {
-      console.log(res);
-      this.uploadedUrl = res.secure_url; 
-      this.newGig.image = this.uploadedUrl || this.newGig.image;
-    });
-    if (this.currentUser) {
-      const gigToCreate = {
-        ...this.newGig,
-        creator: this.currentUser
-      };
-      this.gigService.addGig(gigToCreate).subscribe({
-        next: (createdGig) => {
-          this.router.navigate(['/gig', createdGig._id]);
-        },
-        error: (err) => {
-          console.error('Error creating gig', err);
-        },
-        complete: () => {
-          alert('Gig creation process completed');
-          this.router.navigate(['/freelancerprofile']);
-        }
-      });
-    } else {
-    
-      console.error('User not logged in');
-     
-      this.router.navigate(['/login']);
-    }
+  if (!this.file) {
+    alert('Please select an image file.');
+    return;
   }
+
+  const formData = new FormData();
+  formData.append('file', this.file);
+  formData.append('upload_preset', 'ml_default');
+
+  this.http.post<any>(
+    'https://api.cloudinary.com/v1_1/dq8jyhdua/auto/upload',
+    formData
+  ).subscribe({
+    next: (res) => {
+      console.log(res);
+      this.uploadedUrl = res.secure_url;
+      this.newGig.image = this.uploadedUrl || this.newGig.image;
+
+      if (this.currentUser) {
+        const gigToCreate = {
+          ...this.newGig,
+          creator: this.currentUser
+        };
+
+        this.gigService.addGig(gigToCreate).subscribe({
+          next: (createdGig) => {
+            this.router.navigate(['/gig', createdGig._id]);
+          },
+          error: (err) => {
+            console.error('Error creating gig', err);
+          },
+          complete: () => {
+            alert('Gig creation process completed');
+            this.router.navigate(['/freelancerprofile']);
+          }
+        });
+      } else {
+        console.error('User not logged in');
+        this.router.navigate(['/login']);
+      }
+    },
+    error: (err) => {
+      console.error('Upload failed', err);
+    }
+  });
+}
 }

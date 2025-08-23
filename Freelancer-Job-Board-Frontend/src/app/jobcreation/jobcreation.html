@@ -48,7 +48,7 @@
                                 <textarea id="gig-description" rows="6" placeholder="Describe your service in detail..." [(ngModel)]="newGig.description" name="description" class="w-full p-3 rounded-lg border border-gray-300"></textarea>
                             </div>
                         </div>
-                       <input type="file" [(ngModel)]="file" (change)="onFileSelected($event)" name="file">
+                       <input type="file" (change)="onFileSelected($event)" name="file">
                         <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-3 rounded-xl hover:bg-blue-700 transition-colors mt-6">Publish Gig</button>
                     </form>
                 </section>

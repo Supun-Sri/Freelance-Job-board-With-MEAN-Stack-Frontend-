@@ -4,7 +4,7 @@
                     <h1 class="text-3xl font-bold mb-8 text-center md:text-left">My Dashboard</h1>
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
     
-                        <div class="lg:col-span-1" *ngIf="currentUser">
+                        <div class="lg:col-span-1" *ngIf="currentUser$ | async as currentUser">
                             <div class="bg-white p-6 rounded-xl shadow-lg mb-6">
                                 <div class="flex items-center space-x-4 mb-4">
                                     <img [src]="currentUser.avatar || 'https://placehold.co/80x80/d1d5db/000000?text=AM'" [alt]="currentUser.name.charAt(0)" class="w-16 h-16 rounded-full">
@@ -22,14 +22,14 @@
                         </div>
                         
 
-                        <div class="lg:col-span-2 space-y-8" *ngIf="currentUser">
+                        <div class="lg:col-span-2 space-y-8" *ngIf="currentUser$ | async">
 
                             <div id="active-orders" class="bg-white p-6 rounded-xl shadow-lg">
                                 <h2 class="text-2xl font-bold mb-4">Active Orders</h2>
                                 <div class="space-y-4">
-                                    <div *ngIf="freelancerOrders.length === 0" class="text-gray-500">No active orders found.</div>
+                                    <div *ngIf="(freelancerOrders$ | async)?.length === 0" class="text-gray-500">No active orders found.</div>
                       
-                                    <div *ngFor="let order of freelancerOrders" class="flex items-center space-x-4 border-b pb-4 last:border-0 last:pb-0">
+                                    <div *ngFor="let order of freelancerOrders$ | async" class="flex items-center space-x-4 border-b pb-4 last:border-0 last:pb-0">
   
                                         <img src="https://placehold.co/100x60/9ca3af/ffffff?text=Gig" alt="Gig Image" class="w-20 h-12 rounded-lg object-cover">
                                         <div class="flex-grow">
@@ -48,9 +48,9 @@
                             <div id="my-gigs" class="bg-white p-6 rounded-xl shadow-lg">
                                 <h2 class="text-2xl font-bold mb-4">My Gigs</h2>
                                 <div class="space-y-4">
-                                    <div *ngIf="freelancerGigs.length === 0" class="text-gray-500">No gigs created yet.</div>
+                                    <div *ngIf="(freelancerGigs$ | async)?.length === 0" class="text-gray-500">No gigs created yet.</div>
                      
-                                    <a [routerLink]="['/gig', gig._id]" *ngFor="let gig of freelancerGigs" class="flex items-center space-x-4 border-b pb-4 last:border-0 last:pb-0">
+                                    <a [routerLink]="['/gig', gig._id]" *ngFor="let gig of freelancerGigs$ | async" class="flex items-center space-x-4 border-b pb-4 last:border-0 last:pb-0">
                                         <img [src]="gig.image" [alt]="gig.title" class="w-20 h-12 object-cover rounded-lg">
                                         <div class="flex-grow">
                                             <p class="font-semibold text-gray-800">{{ gig.title }}</p>

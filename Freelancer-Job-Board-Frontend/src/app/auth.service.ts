@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap, catchError, of } from 'rxjs'; // Added catchError, of
+import { BehaviorSubject, Observable, tap, catchError, of, finalize } from 'rxjs'; // Added catchError, of
 import { User } from './user.model';
-
+import { environment } from '../environments/environment';
 interface SignupCredentials {
   name: string;
   email: string;
@@ -14,9 +14,11 @@ interface SignupCredentials {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/api/auth'; // Corrected API URL
+private apiUrl = environment.apiUrl + '/auth'; // Corrected API URL
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
+  private authenticationDone = new BehaviorSubject<boolean>(false);
+  public authenticationDone$ = this.authenticationDone.asObservable();
 
   constructor(private http: HttpClient) {
     this.loadCurrentUser(); // Call a method to load current user on service initialization
@@ -29,10 +31,13 @@ export class AuthService {
         tap(user => this.currentUserSubject.next(user)),
         catchError(error => {
           console.error('Error loading current user:', error);
-          // this.logout(); // Clear invalid token
+          this.currentUserSubject.next(null);
           return of(null);
-        })
+        }),
+        finalize(() => this.authenticationDone.next(true))
       ).subscribe();
+    } else {
+      this.authenticationDone.next(true);
     }
   }
 

@@ -27,12 +27,15 @@ export class Buyerprofile implements OnInit {
   ngOnInit(): void {
     this.authService.currentUser$.subscribe(user => {
  
+      this.cd.detectChanges();
       this.currentUser = user;
          this.cd.detectChanges(); 
       if (this.currentUser && this.currentUser._id) {
         this.orderService.getOrdersByBuyer(this.currentUser._id).subscribe({
+
           next: (orders) => {
             this.buyerOrders = orders;
+            this.cd.detectChanges();
 
           },
           error: (err) => {

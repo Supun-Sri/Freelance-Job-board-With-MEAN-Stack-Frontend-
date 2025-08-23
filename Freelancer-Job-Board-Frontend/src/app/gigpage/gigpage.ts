@@ -1,6 +1,6 @@
 import { Component, OnInit , ChangeDetectorRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Gig, PricingTier } from '../gig.model';
 import { GigService } from '../gig.service';
 import { User } from '../user.model';
@@ -20,7 +20,8 @@ export class Gigpage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private gigService: GigService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -49,5 +50,11 @@ export class Gigpage implements OnInit {
   getSelectedTierDetails(): PricingTier | undefined {
     if (!this.gig) return undefined;
     return this.gig.pricingTiers[this.selectedTier.toLowerCase() as 'basic' | 'standard' | 'premium'];
+  }
+
+  buyGig(): void {
+    if (this.gig) {
+      this.router.navigate(['/buy', this.gig._id]);
+    }
   }
 }

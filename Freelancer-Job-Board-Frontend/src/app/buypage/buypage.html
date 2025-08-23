@@ -1,4 +1,4 @@
-<div class="bg-gray-50 text-gray-800">
+<div class="bg-gray-50 text-gray-800" *ngIf="gig">
 
 
     <div id="app-container" class="min-h-screen flex flex-col">
@@ -11,37 +11,39 @@
                             <div class="bg-white p-6 rounded-xl shadow-lg mb-6">
                                 <h3 class="text-xl font-semibold mb-4">Order Summary</h3>
                                 <div class="flex items-start space-x-4">
-                                    <img src="https://placehold.co/120x80/1e3a8a/ffffff?text=Modern+Website" alt="Gig Image" class="w-32 h-20 object-cover rounded-lg">
+                                    <img [src]="gig.image" [alt]="gig.title" class="w-32 h-20 object-cover rounded-lg">
                                     <div>
-                                        <p class="text-lg font-semibold text-gray-900">I will design a modern and responsive website for your brand.</p>
+                                        <p class="text-lg font-semibold text-gray-900">{{ gig.title }}</p>
                                         <p class="text-sm text-gray-500 mt-1">Package: Standard</p>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="bg-white p-6 rounded-xl shadow-lg">
-                                <h3 class="text-xl font-semibold mb-4">Payment Method</h3>
-                                <form action="#">
+                                <h3 class="text-xl font-semibold mb-4">Payment Method (This Is A Demo Form)</h3>
+                                                                <form (ngSubmit)="completeOrder()">
                                     <div class="mb-4">
                                         <label for="card-name" class="block text-gray-700 font-medium mb-1">Name on card</label>
-                                        <input type="text" id="card-name" class="w-full p-3 rounded-lg border border-gray-300">
+                                        <input type="text" id="card-name" class="w-full p-3 rounded-lg border border-gray-300" >
                                     </div>
                                     <div class="mb-4">
                                         <label for="card-number" class="block text-gray-700 font-medium mb-1">Card number</label>
-                                        <input type="text" id="card-number" class="w-full p-3 rounded-lg border border-gray-300">
+                                        <input type="text" id="card-number" class="w-full p-3 rounded-lg border border-gray-300" >
                                     </div>
                                     <div class="grid grid-cols-2 gap-4 mb-6">
                                         <div>
                                             <label for="card-exp" class="block text-gray-700 font-medium mb-1">Expiration date (MM/YY)</label>
-                                            <input type="text" id="card-exp" class="w-full p-3 rounded-lg border border-gray-300">
+                                            <input type="text" id="card-exp" class="w-full p-3 rounded-lg border border-gray-300" >
                                         </div>
                                         <div>
                                             <label for="card-cvv" class="block text-gray-700 font-medium mb-1">CVV</label>
-                                            <input type="text" id="card-cvv" class="w-full p-3 rounded-lg border border-gray-300">
+                                            <input type="text" id="card-cvv" class="w-full p-3 rounded-lg border border-gray-300" >
                                         </div>
                                     </div>
-                                    <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-3 rounded-xl hover:bg-blue-700 transition-colors" data-target="frontpage">Complete Order</button>
+                                    <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-3 rounded-xl hover:bg-blue-700 transition-colors">Complete Order</button>
                                 </form>
+                                <div *ngIf="error" class="text-red-500 mt-4">{{ error }}</div>
+                                <div *ngIf="error" class="text-red-500 mt-4">{{ error }}</div>
                             </div>
                         </div>
 
@@ -52,7 +54,7 @@
                                 <ul class="text-gray-600 space-y-2 mb-4">
                                     <li class="flex justify-between">
                                         <span>Subtotal</span>
-                                        <span>$250</span>
+                                        <span>${{ gig.pricingTiers.standard.price }}</span>
                                     </li>
                                     <li class="flex justify-between">
                                         <span>Service Fee</span>
@@ -61,7 +63,7 @@
                                 </ul>
                                 <div class="flex justify-between font-bold text-lg border-t border-gray-200 pt-4">
                                     <span>Total</span>
-                                    <span>$265</span>
+                                    <span>${{ gig.pricingTiers.standard.price + 15 }}</span>
                                 </div>
                             </div>
                         </div>

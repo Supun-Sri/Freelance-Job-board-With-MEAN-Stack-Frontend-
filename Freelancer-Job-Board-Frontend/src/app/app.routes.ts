@@ -39,7 +39,7 @@ export const routes: Routes = [
 
     },
     { 
-        path: 'buy',
+        path: 'buy/:id',
         component: Buypage,
         canActivate: [myguardGuard]
 

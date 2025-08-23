@@ -14,7 +14,7 @@
                 <a *ngIf="isAuthenticated$ | async" routerLink="/freelancerprofile"class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">freelancer dashboard</a>
                 <a *ngIf="isAuthenticated$ | async" routerLink="/buyerprofile"class="text-gray-600 hover:text-indigo-600 transition-colors duration-300"> buyer dashboard </a>
                 <a *ngIf="isAuthenticated$ | async" routerLink="/jobcreation" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">create a new gig</a>
-                <a *ngIf="isAuthenticated$ | async" routerLink="/buy" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">buy page test</a>
+           <a  routerLink="/about" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">About Us</a>
             </div>
 
             <!-- User Actions & Mobile Menu Button -->
@@ -36,11 +36,11 @@
         <!-- Mobile Menu (Hidden by default) -->
         <div *ngIf="isMenuOpen" id="mobile-menu" class="md:hidden  bg-white py-4 shadow-inner">
             <div class="flex flex-col items-center space-y-4 px-4">
-                <a routerLink="/" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">Home</a>
-                <a routerLink="/search" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">earch for a service</a>
-                <a routerLink="/freelancerprofile" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">for freelancers</a>
-                <a routerLink="/buyerprofile" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">for buyers</a>
-                <a routerLink="/about" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">About Us</a>
+                <a  routerLink="/" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">Home</a>
+                <a routerLink="/search" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">search for a service</a>
+                <a *ngIf="isAuthenticated$ | async" routerLink="/freelancerprofile" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">for freelancers</a>
+                <a *ngIf="isAuthenticated$ | async" routerLink="/buyerprofile" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">for buyers</a>
+                <a  routerLink="/about" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">About Us</a>
                 <div class="w-full h-px bg-gray-200 my-2"></div>
                 <ng-container *ngIf="!(isAuthenticated$ | async); else loggedInMobile">
                     <a routerLink="/login" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">Sign In</a>

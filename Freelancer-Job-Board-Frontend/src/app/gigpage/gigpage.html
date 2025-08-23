@@ -83,7 +83,7 @@
                                             <span>{{ feature }}</span>
                                         </li>
                                     </ul>
-                                    <button class="w-full bg-blue-600 text-white font-semibold py-3 rounded-xl hover:bg-blue-700 transition-colors" data-target="buy-service-page">Continue (${{ tier.price }})</button>
+                                    <button (click)="buyGig()" class="w-full bg-blue-600 text-white font-semibold py-3 rounded-xl hover:bg-blue-700 transition-colors">Continue (${{ tier.price }})</button>
                                 </div>
                             </div>
                         </div>
