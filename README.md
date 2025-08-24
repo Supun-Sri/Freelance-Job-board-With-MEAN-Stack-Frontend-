@@ -1,6 +1,6 @@
 # 🎯 Freelancer Job Board (MEAN Stack)
 
-Welcome to **Freelancer Job Board** – a full-stack web app where freelancers and clients connect, post gigs, and hustle like pros. Built with the **MEAN stack** (MongoDB, Express, Angular, Node.js) and deployed on **Netlify + Vercel**.
+Welcome to **Freelancer Job Board** – a full-stack web app where freelancers and clients connect, post gigs . Built with the **MEAN stack** (MongoDB, Express, Angular, Node.js) and deployed on **Netlify + Vercel**.
 
 ---
 
@@ -9,7 +9,7 @@ Welcome to **Freelancer Job Board** – a full-stack web app where freelancers a
 - 💼 **Job Listings** – Post, browse, and manage gigs
 - 🔎 **Search & Filter** – Find jobs or freelancers faster
 - 📝 **User Profiles** – Showcase skills and projects
-- 📬 **Applications** – Freelancers can apply directly
+- 📬 **Orders** – Buyers can Place orders at any time 
 - 🔒 **Protected Routes** – Secure API with CORS + tokens
 
 ---
